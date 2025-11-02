@@ -1,0 +1,51 @@
+.nav-hover {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 2px;
+  background-color: #004391;
+  transition: width 0.3s ease;
+}
+
+.nav-hover:hover {
+  color: #004391 !important;
+}
+
+.nav-hover:hover::after {
+  width: 100%;
+}
+
+
+.nav-hover {
+  position: relative;
+  color: #000;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.nav-hover::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #004391;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-hover:hover {
+  color: #004391 !important;
+}
+
+.nav-hover:hover::after {
+  width: 100%;
+}

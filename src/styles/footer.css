@@ -1,0 +1,6 @@
+.footer-section{ background:#004391; color:#fff; padding:40px 0; }
+.footer-logo{ font-size:1.6rem; font-weight:700; color:#fff; }
+.footer-links{ list-style:none; padding:0; }
+.footer-links li{ margin-bottom:8px; }
+.social-icons a{ color:#fff; margin-right:12px; }
+hr{ border-top:1px solid rgba(255,255,255,0.08); margin-top:20px; }
