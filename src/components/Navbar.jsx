@@ -2,9 +2,7 @@
 import React, { useState } from "react";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { FaGraduationCap, FaBars, FaTimes } from "react-icons/fa";
-import '../styles/navbar.css';
-
-
+import "../styles/navbar.css";
 
 export default function NavbarSection({ onCheckEligibility }) {
   const [expanded, setExpanded] = useState(false);
