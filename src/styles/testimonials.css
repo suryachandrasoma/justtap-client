@@ -1,0 +1,191 @@
+.testimonials-section {
+  background: linear-gradient(135deg, #f8fafc 0%, #eef4ff 100%);
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonials-section .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.testimonials-section .header {
+  margin-bottom: 60px;
+}
+
+.testimonials-section .badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: #004391;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  gap: 8px;
+}
+
+.testimonials-section .badge svg {
+  width: 18px;
+  height: 18px;
+}
+
+.testimonials-section h2 {
+  font-size: 2.2rem;
+  color: #002d6b;
+  font-weight: 700;
+  margin-top: 18px;
+  margin-bottom: 12px;
+}
+
+.testimonials-section p {
+  color: #555;
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+}
+
+/* Grid with 4 cards per row */
+.testimonials-section .grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  margin-top: 50px;
+}
+
+/* Card */
+.testimonials-section .card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 8px 25px rgba(0, 67, 145, 0.08);
+  position: relative;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+.testimonials-section .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 67, 145, 0.15);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.testimonials-section .quote {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #004391;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonials-section .quote-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.testimonials-section .stars {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.testimonials-section .star-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 3px;
+}
+
+.testimonials-section .text {
+  font-size: 1rem;
+  color: #444;
+  margin: 15px 0 25px 0;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.testimonials-section .student {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.testimonials-section .avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #004391;
+}
+
+.testimonials-section .info h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #002d6b;
+}
+
+.testimonials-section .meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.testimonials-section .tags {
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.testimonials-section .tag {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.testimonials-section .tag.course {
+  background: #eaf2ff;
+  color: #004391;
+}
+
+.testimonials-section .tag.loan {
+  background: #004391;
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .testimonials-section .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonials-section .grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+}

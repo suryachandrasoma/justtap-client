@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import {
   FaSearch,
   FaFileAlt,
@@ -11,42 +11,47 @@ import "../styles/process.css";
 export default function LoanProcess() {
   const steps = [
     {
-      title: "Check Eligibility Instantly",
+      title: "Check Eligibility",
       icon: <FaSearch />,
-      desc: "Find out your education loan eligibility in seconds.",
+      desc: "Instantly check your education loan eligibility using our AI-based system.",
     },
     {
-      title: "Submit Documents",
+      title: "Upload Documents",
       icon: <FaFileAlt />,
-      desc: "Easily upload your academic and financial documents securely.",
+      desc: "Submit academic and financial documents securely for evaluation.",
     },
     {
-      title: "Get Personalized Offers",
+      title: "Get Offers",
       icon: <FaHandshake />,
-      desc: "Receive curated offers that suit your university and profile.",
+      desc: "Receive tailored loan offers matching your university and profile.",
     },
     {
-      title: "Loan Approval & Disbursal",
+      title: "Loan Disbursal",
       icon: <FaMoneyBillWave />,
-      desc: "Sit back while we get your funds approved and transferred.",
+      desc: "Sit back and relax — we handle the approval and disbursal.",
     },
   ];
 
   return (
     <section className="loan-process-section py-5" id="loan-journey">
       <Container>
-        <h2 className="process-heading text-center mb-5">
+        <h2 className="process-heading text-center mb-3">
           Your Loan Journey Simplified
         </h2>
-        <div className="process-wrapper">
+        <p className="process-subtext text-center mb-5">
+          Navigate through each step of your study loan process — clearly and confidently.
+        </p>
+
+        <div className="stepper-container">
+          <div className="progress-line"></div>
           {steps.map((step, index) => (
-            <div key={index} className="process-step">
-              <div className="step-icon">{step.icon}</div>
-              <div className="step-content">
-                <h5>{step.title}</h5>
-                <p>{step.desc}</p>
+            <div key={index} className="step-item">
+              <div className="step-icon">
+                {step.icon}
+                <div className="step-number">{index + 1}</div>
               </div>
-              {index !== steps.length - 1 && <div className="step-line" />}
+              <h5>{step.title}</h5>
+              <p>{step.desc}</p>
             </div>
           ))}
         </div>

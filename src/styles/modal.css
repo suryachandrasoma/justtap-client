@@ -1,55 +1,111 @@
-.modal-content {
+/* Modern full modal */
+.modern-modal .modal-content {
   border-radius: 20px;
   border: none;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   background: #ffffff;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
 }
 
-.step-progress {
+/* Step Indicator */
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
   position: relative;
 }
 
+.step-indicator::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 30px;
+  right: 30px;
+  height: 2px;
+  background: #e4e7ec;
+  z-index: 0;
+}
+
+.step-item {
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
+
+.step-item .circle {
+  width: 36px;
+  height: 36px;
+  background: #e4e7ec;
+  border-radius: 50%;
+  margin: auto;
+  line-height: 36px;
+  font-weight: 600;
+  color: #555;
+  transition: 0.3s;
+}
+
+.step-item.active .circle {
+  background: linear-gradient(135deg, #0043ff, #007bff);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 67, 255, 0.3);
+}
+
+.step-item span {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+}
+
+.elegant-progress {
+  height: 6px;
+  background: #f1f4fa;
+}
+
+/* Option Cards */
 .modern-option {
-  background: #f8f9fb;
+  background: rgba(249, 250, 253, 0.8);
   border-radius: 12px;
-  padding: 14px 18px;
+  padding: 16px 18px;
   text-align: center;
   font-weight: 500;
-  transition: all 0.25s ease;
-  border: 1px solid #e6e6e6;
+  border: 1px solid #e7e9f2;
   cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
 }
 
 .modern-option:hover {
-  background: #eaf1ff;
-  transform: translateY(-2px);
+  background: #eef4ff;
+  transform: translateY(-3px);
 }
 
 .modern-option.active {
-  background: #0043ff;
+  background: linear-gradient(135deg, #0043ff, #007bff);
   color: white;
   border-color: #0043ff;
-  box-shadow: 0 4px 12px rgba(0, 67, 255, 0.2);
+  box-shadow: 0 6px 18px rgba(0, 67, 255, 0.25);
 }
 
+/* Inputs */
 .modern-input {
-  border-radius: 12px;
+  border-radius: 10px;
+  border: 1px solid #dce1ea;
   padding: 10px 14px;
-  border: 1px solid #dcdcdc;
-  transition: 0.2s;
+  font-size: 15px;
+  transition: all 0.2s;
 }
 
 .modern-input:focus {
-  border-color: #0043ff;
-  box-shadow: 0 0 0 0.15rem rgba(0, 67, 255, 0.2);
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.15rem rgba(0, 123, 255, 0.25);
 }
 
-.modal-header h4 {
-  color: #222;
-}
-
+/* Buttons */
 .modal-footer button {
-  transition: 0.2s;
+  transition: all 0.2s;
 }
 
 .modal-footer button:hover {

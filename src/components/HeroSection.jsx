@@ -9,7 +9,7 @@ export default function HeroSection({ onCheckEligibility, onRequestCallback }) {
       id="home"
       className="hero-section"
       style={{
-        backgroundImage: "url('/assets/banner.png')",
+        backgroundImage: "url('/assets/banner12.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -27,19 +27,22 @@ export default function HeroSection({ onCheckEligibility, onRequestCallback }) {
               </p>
               <div className="mt-4">
                 <Button
-                  variant="light"
-                  className="me-3 hero-cta"
-                  onClick={onCheckEligibility}
-                >
-                  Check Loan Eligibility
-                </Button>
-                <Button
-                  variant="outline-light"
-                  className="hero-cta"
-                  onClick={onRequestCallback}
-                >
-                  Request Callback
-                </Button>
+  variant="light"
+  className="me-3 hero-cta"
+  style={{ borderRadius: "8px" }}
+  onClick={onCheckEligibility}
+>
+  Check Loan Eligibility
+</Button>
+<Button
+  variant="outline-light"
+  className="hero-cta"
+  style={{ borderRadius: "8px" }}
+  onClick={onRequestCallback}
+>
+  Request Callback
+</Button>
+
               </div>
             </Col>
           </Row>

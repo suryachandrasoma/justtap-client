@@ -1,0 +1,49 @@
+// src/services/authServices.js
+import api from "./api";
+
+// --------------------
+// 📝 Step 1: Initiate Signup (Send OTP)
+// --------------------
+export const initiateSignup = async (signupData) => {
+  try {
+    console.log("➡️ Sending signup data:", signupData);
+    const response = await api.post("/auth/initiate-signup", signupData);
+    console.log("✅ OTP Sent:", response.data);
+    return response.data;
+  } catch (err) {
+    console.error("❌ Signup Request Failed:", err.response?.data || err.message);
+    throw err;
+  }
+};
+
+// --------------------
+// 🔢 Step 2: Verify OTP
+// --------------------
+export const verifyOtp = async (otpData) => {
+  try {
+    console.log("➡️ Sending OTP verification data:", otpData);
+    const response = await api.post("/auth/verify-otp", otpData);
+    console.log("✅ OTP Verified:", response.data);
+    return response.data;
+  } catch (err) {
+    console.error("❌ OTP Verification Failed:", err.response?.data || err.message);
+    throw err;
+  }
+};
+
+// --------------------
+// 🎓 Step 3: Fetch Universities
+// --------------------
+export const fetchUniversities = async (country, query = "", limit = 6) => {
+  try {
+    console.log("🌍 Fetching universities:", { country, query, limit });
+    const response = await api.get(
+      `/universities?country=${country}&limit=${limit}&q=${query}`
+    );
+    console.log("✅ Universities Fetched:", response.data);
+    return response.data;
+  } catch (err) {
+    console.error("❌ Fetch Universities Failed:", err.response?.data || err.message);
+    throw err;
+  }
+};

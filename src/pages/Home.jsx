@@ -9,6 +9,8 @@ import FAQSection from '../components/FAQSection';
 import Footer from '../components/Footer';
 import EligibilityModal from '../components/EligibilityModal';
 import CallbackModal from '../components/Callbackmodal';
+import TestimonialsSection from "../components/TestimonialsSection";
+
 
 export default function Home(){
   const [showEligibility, setShowEligibility] = useState(false);
@@ -25,6 +27,8 @@ export default function Home(){
       <ServicesSection />
       <LoanProcess />
       <BankingPartners />
+      <TestimonialsSection /> {/* 👈 Add here */}
+
       <FAQSection />
       <Footer />
 
