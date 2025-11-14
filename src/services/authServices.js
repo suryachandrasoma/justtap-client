@@ -47,3 +47,18 @@ export const fetchUniversities = async (country, query = "", limit = 6) => {
     throw err;
   }
 };
+
+// --------------------
+// 🔁 Patch signup into existing callback lead
+// --------------------
+export const patchSignupToLead = async (data) => {
+  try {
+    console.log("➡️ Patching signup into existing lead:", data);
+    const response = await api.post('/auth/patch-signup-to-lead', data);
+    console.log('✅ Patch result:', response.data);
+    return response.data;
+  } catch (err) {
+    console.error('❌ Patch signup failed:', err.response?.data || err.message);
+    throw err;
+  }
+};

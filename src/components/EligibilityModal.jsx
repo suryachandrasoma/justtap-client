@@ -14,6 +14,7 @@ import {
   initiateSignup,
   verifyOtp,
   fetchUniversities,
+  patchSignupToLead,
 } from "../services/authServices";
 
 export default function EligibilityModal({ show, onHide }) {
@@ -105,15 +106,45 @@ const filteredCountries = COUNTRIES.filter((country) =>
         university: selected.university,
         approachedBank: selected.approachedBank === true,
       };
-      const res = await initiateSignup(body);
+      // normalize before sending
+      const normalizedBody = Object.assign({}, body);
+      if (normalizedBody.email) normalizedBody.email = String(normalizedBody.email).trim().toLowerCase();
+      if (normalizedBody.phone) normalizedBody.phone = String(normalizedBody.phone).replace(/\D/g, '');
+
+      const res = await initiateSignup(normalizedBody);
+
+      // Backend may return an action instructing frontend to patch into an existing callback lead
+      if (res && res.ok && res.action === 'patch') {
+        // ask user for confirmation to patch existing callback lead
+        const confirmPatch = window.confirm(res.message || 'Patch signup to existing callback lead?');
+        if (confirmPatch) {
+          try {
+            const patchRes = await patchSignupToLead({ leadID: res.leadID, payload: normalizedBody });
+            if (patchRes && patchRes.ok && patchRes.token) {
+              localStorage.setItem('token', patchRes.token);
+              alert('✅ Signup updated and verified!');
+              onHide();
+              return;
+            } else {
+              alert(patchRes.message || 'Failed to patch signup.');
+            }
+          } catch (err) {
+            alert('Patch failed: ' + (err?.response?.data?.message || err.message));
+          }
+        } else {
+          // user cancelled patch - do nothing
+          return;
+        }
+      }
+
       if (res.ok) {
         setTempId(res.tempId);
         setOtpStep(true);
       } else {
-        alert("Failed to initiate signup. Please try again.");
+        alert(res.message || 'Failed to initiate signup. Please try again.');
       }
     } catch (err) {
-      alert("Error: " + (err?.response?.data?.error || err.message));
+      alert("Error: " + (err?.response?.data?.message || err.message));
     } finally {
       setLoading(false);
     }
