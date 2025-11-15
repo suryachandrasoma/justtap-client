@@ -46,9 +46,9 @@ export default function Dashboard() {
     if (!student) return [];
     return [
       { stage: "Application Started", status: true, icon: <FaBook /> },
-      { stage: "Documents Uploaded", status: student.payload?.documentsUploaded || false, icon: <FaCheckCircle /> },
-      { stage: "Under Review", status: student.payload?.underReview || false, icon: <FaClock /> },
-      { stage: "Approved", status: student.payload?.approved || false, icon: <FaCheckCircle /> },
+      { stage: "Documents Uploaded", status: student.documentsUploaded || false, icon: <FaCheckCircle /> },
+      { stage: "Under Review", status: student.underReview || false, icon: <FaClock /> },
+      { stage: "Approved", status: student.approved || false, icon: <FaCheckCircle /> },
     ];
   };
 
@@ -85,7 +85,7 @@ export default function Dashboard() {
         {/* Header Section */}
         <div className="d-flex justify-content-between align-items-center mb-4">
           <div>
-            <h1 className="fw-bold text-dark mb-1">Welcome, {student.payload?.fullName || "Student"} 👋</h1>
+            <h1 className="fw-bold text-dark mb-1">Welcome, {student.fullName || "Student"} 👋</h1>
             <p className="text-muted">Your application tracking dashboard</p>
           </div>
           <Button variant="outline-danger" onClick={logout} className="d-flex align-items-center gap-2">
@@ -115,8 +115,8 @@ export default function Dashboard() {
                     <FaUser size={24} />
                   </div>
                   <div>
-                    <h5 className="fw-bold mb-0">{student.payload?.fullName}</h5>
-                    <p className="text-muted mb-0">{student.payload?.email}</p>
+                    <h5 className="fw-bold mb-0">{student.fullName}</h5>
+                    <p className="text-muted mb-0">{student.email}</p>
                   </div>
                 </div>
 
@@ -126,7 +126,7 @@ export default function Dashboard() {
                       <FaEnvelope color="#004391" />
                       <div>
                         <small className="text-muted d-block">Email</small>
-                        <span className="fw-semibold">{student.payload?.email}</span>
+                        <span className="fw-semibold">{student.email}</span>
                       </div>
                     </div>
                   </Col>
@@ -135,7 +135,7 @@ export default function Dashboard() {
                       <FaPhone color="#004391" />
                       <div>
                         <small className="text-muted d-block">Phone</small>
-                        <span className="fw-semibold">{student.payload?.phone || "Not provided"}</span>
+                        <span className="fw-semibold">{(student.mobileNumbers && student.mobileNumbers[0]) || "Not provided"}</span>
                       </div>
                     </div>
                   </Col>
@@ -144,7 +144,7 @@ export default function Dashboard() {
                       <FaMapMarkerAlt color="#004391" />
                       <div>
                         <small className="text-muted d-block">City</small>
-                        <span className="fw-semibold">{student.payload?.city || "Not provided"}</span>
+                        <span className="fw-semibold">{student.permanentLocation || "Not provided"}</span>
                       </div>
                     </div>
                   </Col>
@@ -168,26 +168,26 @@ export default function Dashboard() {
                 <Row>
                   <Col md={6} className="mb-3">
                     <p className="text-muted small mb-1">University</p>
-                    <p className="fw-semibold">{student.payload?.university}</p>
+                    <p className="fw-semibold">{student.admittedUniversities}</p>
                   </Col>
                   <Col md={6} className="mb-3">
                     <p className="text-muted small mb-1">Country</p>
-                    <p className="fw-semibold">{student.payload?.country}</p>
+                    <p className="fw-semibold">{student.planningToStudy}</p>
                   </Col>
                   <Col md={6} className="mb-3">
                     <p className="text-muted small mb-1">Intake</p>
-                    <p className="fw-semibold">{student.payload?.intake}</p>
+                    <p className="fw-semibold">{student.courseStartMonth}</p>
                   </Col>
                   <Col md={6} className="mb-3">
                     <p className="text-muted small mb-1">Admission Status</p>
-                    <Badge bg={student.payload?.admissionStatus === "Confirmed" ? "success" : "warning"}>
-                      {student.payload?.admissionStatus}
+                    <Badge bg={student.admissionStatus === "Confirmed" ? "success" : "warning"}>
+                      {student.admissionStatus}
                     </Badge>
                   </Col>
                   <Col md={6} className="mb-0">
                     <p className="text-muted small mb-1">Approached Bank</p>
-                    <Badge bg={student.payload?.approachedBank ? "info" : "secondary"}>
-                      {student.payload?.approachedBank ? "Yes" : "No"}
+                    <Badge bg={student.approachedBank ? "info" : "secondary"}>
+                      {student.approachedBank ? "Yes" : "No"}
                     </Badge>
                   </Col>
                 </Row>
@@ -249,11 +249,11 @@ export default function Dashboard() {
 
                 {/* Status Alert */}
                 <Alert
-                  variant={student.payload?.approved ? "success" : "info"}
+                  variant={student.approved ? "success" : "info"}
                   className="mt-4 mb-0"
                 >
                   <small>
-                    {student.payload?.approved
+                    {student.approved
                       ? "✅ Your application has been approved!"
                       : "⏳ Your application is being processed."}
                   </small>
