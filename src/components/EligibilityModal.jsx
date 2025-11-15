@@ -16,6 +16,7 @@ import {
   fetchUniversities,
   patchSignupToLead,
 } from "../services/authServices";
+import { useNavigate } from 'react-router-dom';
 
 export default function EligibilityModal({ show, onHide }) {
   const totalSteps = 5;
@@ -37,6 +38,8 @@ export default function EligibilityModal({ show, onHide }) {
     email: "",
     phone: "",
   });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!show) {
@@ -124,6 +127,8 @@ const filteredCountries = COUNTRIES.filter((country) =>
               localStorage.setItem('token', patchRes.token);
               alert('✅ Signup updated and verified!');
               onHide();
+              // navigate to dashboard after successful patch
+              navigate('/dashboard');
               return;
             } else {
               alert(patchRes.message || 'Failed to patch signup.');
@@ -158,6 +163,8 @@ const filteredCountries = COUNTRIES.filter((country) =>
         localStorage.setItem("token", res.token);
         alert("✅ Signup verified successfully!");
         onHide();
+        // navigate to dashboard after signup
+        navigate('/dashboard');
       } else {
         alert(res.message || "Invalid OTP. Try again.");
       }

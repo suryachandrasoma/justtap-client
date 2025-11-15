@@ -1,6 +1,7 @@
 // src/services/authServices.js
 import api from "./api";
 
+
 // --------------------
 // 📝 Step 1: Initiate Signup (Send OTP)
 // --------------------
@@ -59,6 +60,39 @@ export const patchSignupToLead = async (data) => {
     return response.data;
   } catch (err) {
     console.error('❌ Patch signup failed:', err.response?.data || err.message);
+    throw err;
+  }
+};
+
+// --------------------
+// ✉️ Signin helpers (Email OTP)
+// --------------------
+export const initiateSignin = async (email) => {
+  try {
+    const response = await api.post('/auth/initiate-signin', { email });
+    return response.data;
+  } catch (err) {
+    console.error('❌ initiateSignin failed:', err.response?.data || err.message);
+    throw err;
+  }
+};
+
+export const verifySignin = async (data) => {
+  try {
+    const response = await api.post('/auth/verify-signin', data);
+    return response.data;
+  } catch (err) {
+    console.error('❌ verifySignin failed:', err.response?.data || err.message);
+    throw err;
+  }
+};
+
+export const fetchStudentDashboard = async () => {
+  try {
+    const response = await api.get('/student/me');
+    return response.data;
+  } catch (err) {
+    console.error('❌ Fetch Student Dashboard Failed:', err.response?.data || err.message);
     throw err;
   }
 };

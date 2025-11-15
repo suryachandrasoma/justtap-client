@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { FaGraduationCap, FaBars, FaTimes } from "react-icons/fa";
 import "../styles/navbar.css";
+import SigninModal from './SigninModal';
 
 export default function NavbarSection({ onCheckEligibility }) {
   const [expanded, setExpanded] = useState(false);
+  const [showSignin, setShowSignin] = useState(false);
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
@@ -112,6 +114,13 @@ export default function NavbarSection({ onCheckEligibility }) {
                 Call Back
               </Button>
               <Button
+                variant="outline-secondary"
+                style={{ borderColor: '#004391', color: '#004391', fontWeight: '500' }}
+                onClick={() => setShowSignin(true)}
+              >
+                Sign In
+              </Button>
+              <Button
                 style={{
                   backgroundColor: "#004391",
                   border: "none",
@@ -122,6 +131,7 @@ export default function NavbarSection({ onCheckEligibility }) {
                 Check Eligibility
               </Button>
             </div>
+            <SigninModal show={showSignin} onHide={() => setShowSignin(false)} onSuccess={() => setShowSignin(false)} />
           </Nav>
         </Navbar.Collapse>
       </Container>
