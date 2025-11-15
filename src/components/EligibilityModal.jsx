@@ -26,6 +26,9 @@ export default function EligibilityModal({ show, onHide }) {
   const [otpStep, setOtpStep] = useState(false);
   const [otp, setOtp] = useState("");
   const [tempId, setTempId] = useState(null);
+  const [signupPayload, setSignupPayload] = useState(null);
+  const [ttlSeconds, setTtlSeconds] = useState(0);
+  const [remaining, setRemaining] = useState(0);
 
   const [selected, setSelected] = useState({
     country: "",
@@ -115,7 +118,8 @@ const filteredCountries = COUNTRIES.filter((country) =>
       if (normalizedBody.phone) normalizedBody.phone = String(normalizedBody.phone).replace(/\D/g, '');
 
       const res = await initiateSignup(normalizedBody);
-
+      // store payload so we can resend OTP if needed
+      setSignupPayload(normalizedBody);
       // Backend may return an action instructing frontend to patch into an existing callback lead
       if (res && res.ok && res.action === 'patch') {
         // ask user for confirmation to patch existing callback lead
@@ -144,6 +148,8 @@ const filteredCountries = COUNTRIES.filter((country) =>
 
       if (res.ok) {
         setTempId(res.tempId);
+        setTtlSeconds(res.ttlSeconds || 120);
+        setRemaining(res.ttlSeconds || 120);
         setOtpStep(true);
       } else {
         alert(res.message || 'Failed to initiate signup. Please try again.');
@@ -170,6 +176,46 @@ const filteredCountries = COUNTRIES.filter((country) =>
       }
     } catch (err) {
       alert("Verification failed: " + (err?.response?.data?.error || err.message));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // countdown for signup OTP
+  useEffect(() => {
+    if (!tempId) return;
+    setRemaining(prev => prev || ttlSeconds || 0);
+  }, [tempId, ttlSeconds]);
+
+  useEffect(() => {
+    if (!tempId || !remaining) return;
+    const iv = setInterval(() => {
+      setRemaining(r => {
+        if (r <= 1) {
+          clearInterval(iv);
+          return 0;
+        }
+        return r - 1;
+      });
+    }, 1000);
+    return () => clearInterval(iv);
+  }, [tempId, remaining]);
+
+  const resendSignupOtp = async () => {
+    if (!signupPayload) return alert('No signup session to resend for');
+    try {
+      setLoading(true);
+      const res = await initiateSignup(signupPayload);
+      if (res && res.ok) {
+        setTempId(res.tempId);
+        setTtlSeconds(res.ttlSeconds || 120);
+        setRemaining(res.ttlSeconds || 120);
+        alert('OTP resent to your email');
+      } else {
+        alert(res.message || 'Failed to resend OTP');
+      }
+    } catch (err) {
+      alert('Resend failed: ' + (err?.response?.data?.message || err.message));
     } finally {
       setLoading(false);
     }
